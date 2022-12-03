@@ -9,7 +9,7 @@ namespace Db
         private static readonly string username = "sa";
         private static readonly string password = "dev123";
 
-        public static string GetStringConnection() => $"Server{server};Database={database};User Id={username};Password={password}";
+        public static string GetStringConnection() => $"Server={server};Database={database};User Id={username};Password={password}";
 
 
     }
