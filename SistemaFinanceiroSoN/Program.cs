@@ -66,7 +66,68 @@ namespace SistemaFinanceiroSoN
 
                             break;
                         case 2:
-                            Write("CADASTRAR");
+
+                            Title = "NOVA CONTA - CONTROLE FINANCEIRO SON";
+                            Uteis.MontarHeader("CADASTRANDO UMA NOVA CONTA");
+
+                            string descricao = "";
+                            do
+                            {
+                                Write("Informe a descrição da conta: ");
+                                descricao = ReadLine();
+
+                                if (descricao.Equals(""))
+                                {
+                                    BackgroundColor = ConsoleColor.Red;
+                                    ForegroundColor = ConsoleColor.White;
+                                    Uteis.MontarHeader("INFORME UMA DESCRICAO PARA A CONTA", '*', 30);
+                                    ResetColor();
+                                }
+                            } while (descricao.Equals(""));
+                            
+
+
+                            Write("Informe o valor: ");
+                            double valor = Convert.ToDouble(ReadLine());
+
+                            Write("Informe o tipo: (R para Receber ou P para Pagar): ");
+                            char tipo = Convert.ToChar(ReadLine());
+
+                            Write("Informe a Data de vencimento (dd/mm/aaaa): ");
+                            DateTime dataVencimento = DateTime.Parse(ReadLine());
+
+                            WriteLine("Selecione uma Categoria pelo ID: \n");
+                            p.categorias = p.categoria.ListarTodos();
+                             table = new ConsoleTable("ID", "Nome");
+                            foreach (var c in p.categorias)
+                            {
+                                table.AddRow(c.Id, c.Nome);
+
+                            }
+                            table.Write();
+                            Write("Categoria: ");
+                            int cat_id = Convert.ToInt32(ReadLine());
+                            Categoria categoria_cadastro = p.categoria.GetCategoria(cat_id);
+
+                            Conta conta = new Conta()
+                            {
+                                Descricao = descricao,
+                                Valor = valor,
+                                Tipo = tipo,
+                                DataVencimento = dataVencimento,
+                                Categoria = categoria_cadastro
+
+                            };
+                            p.conta.Salvar(conta);
+
+                            BackgroundColor = ConsoleColor.DarkGreen;
+                            ForegroundColor = ConsoleColor.White;
+                            Uteis.MontarHeader("CONTA SALVA COM SUCESSO", '+', 30);
+                            ResetColor();
+
+                            ReadLine();
+                            Clear();
+
                             break;
                         case 3:
                             Write("EDITAR");

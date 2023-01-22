@@ -17,7 +17,7 @@ namespace Modelo
         public string Descricao { get; set; }
         public double Valor { get; set; }
 
-        public Char Tipo
+        public char Tipo
         {
             get => _tipo;
             set => _tipo = !value.Equals('P') && !value.Equals('R') ? throw new Exception("Use P para Pagar e R Receber"):value;
